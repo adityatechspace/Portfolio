@@ -22,6 +22,8 @@ export const askPortfolioAssistant = async (userQuestion) => {
 
   const portfolioData = portfolioDoc.data;
 
+  portfolio.currentDate = new Date().toISOString().split("T")[0];
+
   const ownerName =
   `${portfolioData.personal?.firstName || ""} ${
     portfolioData.personal?.secondName || ""
