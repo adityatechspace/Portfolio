@@ -178,7 +178,7 @@ ${conversationContext || "No previous conversation."}
 
 ============================
 
-USER QUESTION
+USER'S CURRENT QUESTION
 
 ${userQuestion}
 
