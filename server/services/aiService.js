@@ -108,7 +108,7 @@ FORMATTING
 - For coding or technical questions unrelated to ${ownerName}, use properly formatted code blocks.
 `;
 
-  const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+  const model = genAI.getGenerativeModel({ model: "gemini-3.6-flash" });
 
   const prompt = `
 ${portfolioContext}
