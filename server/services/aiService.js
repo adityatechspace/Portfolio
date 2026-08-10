@@ -25,8 +25,19 @@ export const askPortfolioAssistant = async (userQuestion) => {
       portfolioData.personal?.secondName || ""
     }`.trim() || "the portfolio owner";
 
+    const currentDateTime = new Date().toLocaleString("en-IN", {
+    timeZone: "Asia/Kolkata",
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
   const portfolioContext = `
 You are a helpful, general-purpose AI Assistant embedded on ${ownerName}'s portfolio website.
+Current date and time (India Standard Time): ${currentDateTime}
 
 Your job has two parts:
 
