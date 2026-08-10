@@ -18,7 +18,7 @@ import Contact from "./components/contact/Contact";
 import Footer from "./components/layout/Footer";
 import AdminLogin from "./components/admin/adminLogin";
 import AdminTestimonials from "./components/admin/adminTestimonials";
-import { AIAssistantProvider } from "./components/chatbot/AIAssistantContext";
+import { AIAssistantProvider } from "./context/AIAssistantContext";
 function App() {
   const [portfolioData, setPortfolioData] = useState(null);
   const [loading, setLoading] = useState(true);
