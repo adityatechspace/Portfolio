@@ -1,95 +1,16 @@
-import { useState, useRef, useEffect, } from "react";
-
-import MessageBubble from "./MessageBubble";
-import ChatInput from "./ChatInput";
-import SuggestedQuestions from "./SuggestedQuestions";
-import { askAssistant } from "../../services/api";
+import { BsStars } from "react-icons/bs";
+import { useAIAssistant } from "../../context/AIAssistantContext";
 
 function ChatBot() {
-  const [messages, setMessages] = useState([
-    {
-      sender: "assistant",
-      message:
-        "Hi! I'm Aditya's AI assistant. Ask me about projects, skills, experience or certifications.",
-    },
-  ]);
-
-  const [input, setInput] = useState("");
-  const [loading, setLoading] = useState(false);
-  const chatContainerRef = useRef(null);
-
-  const handleSend = async () => {
-
-  if (!input.trim()) return;
-
-  const userMessage = input;
-
-  setMessages((prev) => [
-    ...prev,
-    {
-      sender: "user",
-      message: userMessage,
-    },
-  ]);
-
-  setInput("");
-
-  try {
-    setLoading(true);
-    const data =
-      await askAssistant(
-        userMessage
-      );
-
-    setMessages((prev) => [
-      ...prev,
-      {
-        sender: "assistant",
-        message:
-          data.response,
-      },
-    ]);
-
-  } catch {
-
-    setMessages((prev) => [
-      ...prev,
-      {
-        sender: "assistant",
-        message:
-          "Unable to connect to AI Assistant.",
-      },
-    ]);
-  } finally {
-    setLoading(false);
-  }
- };
-
-  const handleSuggestedQuestion = (
-    question
-  ) => {
-    setInput(question);
-  };
-
-  useEffect(() => {
-  if (chatContainerRef.current) {
-    chatContainerRef.current.scrollTop =
-      chatContainerRef.current.scrollHeight;
-  }
-}, [messages, loading]);
+  const { openAI } = useAIAssistant();
 
   return (
-    <section
-      id="ai-assistant"
-      className="py-32"
-    >
+    <section id="ai-assistant" className="py-32">
       <div className="max-w-5xl mx-auto px-6">
-
-{/* Heading */}
-
- <div className="relative mb-20">
-
-    <div className="
+        {/* Heading */}
+        <div className="relative mb-14">
+          <div
+            className="
     absolute
     -left-20
     top-0
@@ -98,27 +19,28 @@ function ChatBot() {
     rounded-full
     bg-blue-500/10
     blur-[110px]
-    "></div>
+    "
+          ></div>
 
-    <div className="relative">
+          <div className="relative">
+            <div className="inline-flex items-center gap-3">
+              <div className="h-px w-12 bg-gradient-to-r from-blue-500 to-transparent"></div>
 
-        <div className="inline-flex items-center gap-3">
-
-            <div className="h-px w-12 bg-gradient-to-r from-blue-500 to-transparent"></div>
-
-            <span className="
+              <span
+                className="
             uppercase
             tracking-[0.35em]
             text-xs
             font-semibold
             text-blue-400/80
-            ">
-                        FLAGSHIP FEATURE
-            </span>
+            "
+              >
+                FLAGSHIP FEATURE
+              </span>
+            </div>
 
-        </div>
-
-        <h2 className="
+            <h2
+              className="
         mt-5
         text-4xl
         md:text-5xl
@@ -132,25 +54,25 @@ function ChatBot() {
 
         bg-clip-text
         text-transparent
-        ">
-                         AI Portfolio Assistant
+        "
+            >
+              AI Portfolio Assistant
+            </h2>
 
-
-        </h2>
-
-        <p className="
+            <p
+              className="
         mt-6
         max-w-xl
         text-lg
         leading-8
         text-slate-400
-        ">
-            Ask questions about my
-            projects, skills, experience,
-            certifications and education.
-        </p>
+        "
+            >
+              Ask questions about my projects, skills, experience, certifications and education.
+            </p>
 
-        <div className="
+            <div
+              className="
         mt-8
         h-1
         w-28
@@ -159,55 +81,19 @@ function ChatBot() {
         from-blue-500
         via-purple-500
         to-cyan-500
-        "/>
-
-    </div>
-
-</div>
-
-        <div className="border border-slate-800 rounded-3xl p-6">
-          
-          <div className=" chat-scroll space-y-4 h-[400px] overflow-y-auto mb-6" ref={chatContainerRef}>
-            {messages.map((msg, index) => (
-              <MessageBubble
-                key={index}
-                sender={msg.sender}
-                message={msg.message}
-              />
-              
-            ))}
-
-            {loading && (
-  <div className="flex justify-start">
-    <div className="max-w-[80%] px-5 py-3 rounded-2xl bg-slate-800 text-slate-400">
-      <span className="typing">
-        Typing
-      </span>
-    </div>
-  </div>
-)}
-          </div>
-
-          <div>
-
-          <ChatInput
-            value={input}
-            onChange={(e) =>
-              setInput(e.target.value)
-            }
-            onSend={handleSend}
-          />
-          </div>
-
-          <div className="mb-6 mt-5">
-            <SuggestedQuestions
-              onQuestionClick={
-                handleSuggestedQuestion
-              }
+        "
             />
           </div>
-
         </div>
+
+        {/* Open panel button */}
+        <button
+          onClick={openAI}
+          className="group inline-flex items-center gap-3 rounded-full border border-violet-500/30 bg-gradient-to-r from-violet-500/10 to-blue-500/10 px-7 py-4 text-base font-semibold text-violet-200 shadow-lg shadow-violet-500/10 transition-all duration-300 hover:scale-105 hover:border-violet-400 hover:shadow-violet-500/30"
+        >
+          <BsStars className="text-lg transition-transform duration-500 group-hover:rotate-12" />
+          Open AI Assistant
+        </button>
       </div>
     </section>
   );
