@@ -6,11 +6,11 @@ export const chatWithAI = async (
   res
 ) => {
   try {
-    const { message } = req.body;
+    const { message, history = [] } = req.body;
 
     const response =
       await askPortfolioAssistant(
-        message
+        message, history
       );
 
     res.status(200).json({
