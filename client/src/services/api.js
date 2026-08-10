@@ -5,7 +5,7 @@ const API = axios.create({
 });
 
 export const askAssistant = async (message) => {
-const response = await API.post("/chat", { message });
+const response = await API.post("/chat", { message , history});
 
 return response.data;
 };
