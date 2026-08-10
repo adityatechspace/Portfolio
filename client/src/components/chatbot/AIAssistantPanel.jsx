@@ -6,7 +6,7 @@ import MessageBubble from "./MessageBubble";
 import ChatInput from "./ChatInput";
 import SuggestedQuestions from "./SuggestedQuestions";
 import { askAssistant } from "../../services/api";
-import { useAIAssistant } from "./AIAssistantContext";
+import { useAIAssistant } from "../../context/AIAssistantContext";
 
 function AIAssistantPanel() {
   const { isOpen, closeAI } = useAIAssistant();
