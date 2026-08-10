@@ -40,7 +40,7 @@ function AIAssistantPanel() {
 
     try {
       setLoading(true);
-      const data = await askAssistant(userMessage);
+      const data = await askAssistant(userMessage, messages);
 
       setMessages((prev) => [
         ...prev,
