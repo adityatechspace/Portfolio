@@ -7,6 +7,18 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 export const askPortfolioAssistant = async (userQuestion, conversationHistory = []
 ) => {
+
+  const conversationContext = conversationHistory
+  .map((msg) => {
+    const speaker =
+      msg.sender === "user"
+        ? "User"
+        : "Assistant";
+
+    return `${speaker}: ${msg.message}`;
+  })
+  .join("\n\n");
+  
   // Load portfolio from database
   let portfolioDoc;
 
