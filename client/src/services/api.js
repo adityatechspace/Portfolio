@@ -4,7 +4,7 @@ const API = axios.create({
   baseURL: import.meta.env.VITE_API_URL || "http://localhost:5000/api",
 });
 
-export const askAssistant = async (message) => {
+export const askAssistant = async (message, history = []) => {
 const response = await API.post("/chat", { message , history});
 
 return response.data;
