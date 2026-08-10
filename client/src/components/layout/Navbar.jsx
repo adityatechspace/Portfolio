@@ -8,10 +8,12 @@ import {
 } from "react-icons/fi";
 import { BsStars } from "react-icons/bs";
 import { useTheme } from "../../context/ThemeContext";
+import { useAIAssistant } from "../../context/AIAssistantContext";
 import { FiLock } from "react-icons/fi";
 
 function Navbar({ data }) {
   const { darkMode, toggleTheme } = useTheme();
+  const { openAI } = useAIAssistant();
   const [menuOpen, setMenuOpen] = useState(false);
   const [highlightAI, setHighlightAI] = useState(false);
     const [showThemeMessage, setShowThemeMessage] = useState(false);
@@ -86,8 +88,9 @@ function Navbar({ data }) {
               ))}
               
               {/* AI Assistant */}
-              <a
-  href={aiAssistant.link}
+              <button
+  type="button"
+  onClick={openAI}
   className={`group relative flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-all duration-500
   ${
     highlightAI
@@ -102,7 +105,7 @@ function Navbar({ data }) {
       {aiAssistant.popUp}
     </span>
   )}
-</a>
+</button>
 
             </nav>
 
@@ -168,6 +171,19 @@ function Navbar({ data }) {
           {item.text}
         </a>
       ))}
+
+      {/* AI Assistant (mobile) */}
+      <button
+        type="button"
+        onClick={() => {
+          setMenuOpen(false);
+          openAI();
+        }}
+        className="flex items-center gap-2 rounded-xl border border-violet-500/30 bg-gradient-to-r from-violet-500/10 to-blue-500/10 px-4 py-3 text-sm font-medium text-violet-300 transition hover:border-violet-400"
+      >
+        <BsStars />
+        {aiAssistant.text}
+      </button>
 
               
               </div>
